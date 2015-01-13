@@ -1,0 +1,17 @@
+{
+    "yoctosecond": 1e-24,
+    "zeptosecond": 1e-21,
+    "attosecond": 1e-18,
+    "femtosecond": 1e-15,
+    "picosecond": 1e-12,
+    "nanosecond": 1e-9,
+    "microsecond": 1e-6,
+    "millisecond": 1e-3,
+    "second": 1,
+    "minute": 60,
+    "hour": 3600,
+    "day": 86400,
+    "week": 604800,
+    "month": 2626560,
+    "year": 31557600
+}
