@@ -1,0 +1,21 @@
+{
+  "name": "Periods",
+  "version": "0.1.0",
+  "description": "Calculates periods from seconds",
+  "main": "periods.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "Small Hadron Collider",
+  "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/howsecureismypassword/periods.git"
+  },
+  "dependencies": {
+    "library": "git://github.com/howsecureismypassword/library.git#develop"
+  },
+  "devDependencies": {
+    "buster": "0.7.*"
+  }
+}
