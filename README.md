@@ -1,12 +1,16 @@
 # How Secure Is My Password
 ## Periods
 
-### Usage
-
 ```javascript
 var period = require("period");
 
-console.log(period(3600).getPeriod()); // { "value": 1, "name": "hour" }
-console.log(period(24, "hour").getPeriod()); // { "value": 1, "name": "day" }
-console.log(period(7, "day").getPeriod()); // { "value": 1, "name": "week" }
+console.log(period(3600).getLength()); // 1
+console.log(period(3600).getSingular()); // "hour"
+console.log(period(3600).getPlural()); // "hours"
+
+console.log(period(24, "hour").getLength()); // 1
+console.log(period(24, "hour").getSingular()); // "day"
+
+console.log(period(7, "day").getLength()); // 1
+console.log(period(7, "day").getPlural()); // "weeks"
 ```
