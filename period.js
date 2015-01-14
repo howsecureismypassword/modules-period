@@ -33,7 +33,7 @@ var getPeriod = function (valueInSeconds) {
 
     return {
         value: value,
-        name: value === 1 ? lastPeriod.singular : lastPeriod.plural
+        period: lastPeriod
     };
 };
 
@@ -83,18 +83,18 @@ var period = function (value, name) {
         return valueInSeconds;
     };
 
-    self.valueOf = self.inSeconds;
-
-    self.getPeriod = function () {
-        return period;
-    };
-
-    self.getPeriodName = function () {
-        return period.name;
-    };
-
-    self.getPeriodValue = function () {
+    self.getLength = function () {
         return period.value;
+    };
+
+    self.valueOf = self.Length;
+
+    self.getSingular = function () {
+        return period.period.singular;
+    };
+
+    self.getPlural = function () {
+        return period.period.plural;
     };
 
     return self;
