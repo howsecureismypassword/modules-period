@@ -2,7 +2,7 @@
   "name": "period",
   "version": "0.1.0",
   "description": "Calculates periods from seconds",
-  "main": "periods.js",
+  "main": "period.js",
   "scripts": {
     "test": "node test"
   },
