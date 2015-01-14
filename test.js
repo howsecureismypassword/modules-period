@@ -39,5 +39,8 @@ buster.testCase("named-number", {
         "1000 ms": function () {
             assert.equals(period(1000, "ms").getPeriod(), { "value": 1, "name": "second"});
         },
+        "1e20s": function () {
+            assert.equals(period(1e20).getPeriod(), { "value": 3168808781402.895, "name": "years"});
+        },
     }
 });

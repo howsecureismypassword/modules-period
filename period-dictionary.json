@@ -76,6 +76,6 @@
     {
         "singular": "year",
         "plural": "years",
-        "seconds": 3155760
+        "seconds": 31557600
     }
 ]
