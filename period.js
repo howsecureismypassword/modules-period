@@ -2,36 +2,23 @@
 
 var L = require("library");
 
-var periodShortcodes = require("./period-shortcodes");
+var periodsDictionary, orderedPeriodsDictionary;
 
-var periodDictionary, orderedPeriodDictionary;
+var getDictionaryValue = L.prop("seconds");
 
-var getDictionaryName = L.prop(0);
-var getDictionaryValue = L.prop(1);
-
-var getPeriodName = function (name) {
-    var shortcodes = periodShortcodes;
-
+var getPeriodInSeconds = function (name) {
     name = name || "second";
     name = name.toLowerCase();
 
-    // Check if period name is abbreviated
-    if (shortcodes.hasOwnProperty(name)) {
-        name = shortcodes[name];
-    }
-
-    // Remove any pluralisation
-    name = name.replace(/s$/, "");
-
-    if (periodDictionary.hasOwnProperty(name)) {
-        return name;
+    if (periodsDictionary.hasOwnProperty(name)) {
+        return periodsDictionary[name];
     }
 
     return null;
 };
 
 var getPeriod = function (valueInSeconds) {
-    var lastPeriod = L.prop(0, orderedPeriodDictionary),
+    var lastPeriod = L.prop(0, orderedPeriodsDictionary),
         value;
 
     L.forEach(function (period) {
@@ -40,35 +27,55 @@ var getPeriod = function (valueInSeconds) {
         }
 
         lastPeriod = period;
-    }, orderedPeriodDictionary);
+    }, orderedPeriodsDictionary);
 
     value = valueInSeconds / getDictionaryValue(lastPeriod);
 
     return {
         value: value,
-        name: getDictionaryName(lastPeriod)
+        name: value === 1 ? lastPeriod.singular : lastPeriod.plural
     };
 };
 
+var extractNames = function (periodsDictionary, item) {
+    var value = getDictionaryValue(item);
+
+    if (item.hasOwnProperty("singular")) {
+        periodsDictionary[item.singular] = value;
+    }
+
+    if (item.hasOwnProperty("plural")) {
+        periodsDictionary[item.plural] = value;
+    }
+
+    if (item.hasOwnProperty("abbreviations") && L.isArray(item.abbreviations)) {
+        L.forEach(function (name) {
+            periodsDictionary[name] = value;
+        }, item.abbreviations);
+    }
+
+    return periodsDictionary;
+};
+
 var period = function (value, name) {
-    if (periodDictionary === undefined) {
+    if (periodsDictionary === undefined) {
         throw new Error("Period Dictionary is not set");
     }
 
     var self = {},
-        periodName, valueInSeconds, period;
+        periodInSeconds, valueInSeconds, period;
 
     if (!L.isNumber(value)) {
         throw new Error ("Period: Invalid value type");
     }
 
-    periodName = getPeriodName(name);
+    periodInSeconds = getPeriodInSeconds(name);
 
-    if (!periodName) {
+    if (!periodInSeconds) {
         throw new Error ("Period: Invalid period name");
     }
 
-    valueInSeconds = value * periodDictionary[periodName];
+    valueInSeconds = value * periodInSeconds;
 
     period = getPeriod(valueInSeconds);
 
@@ -90,21 +97,12 @@ var period = function (value, name) {
         return period.value;
     };
 
-    self.inPeriod = function (name) {
-        var val = 1;
-
-        name = getPeriodName(name);
-        val = periodDictionary[name];
-
-        return valueInSeconds / val;
-    };
-
     return self;
 };
 
 period.setDictionary = function (dictionary) {
-    periodDictionary = dictionary;
-    orderedPeriodDictionary = L.sortBy(1, L.toPairs(periodDictionary));
+    orderedPeriodsDictionary = L.sortBy("seconds", dictionary);
+    periodsDictionary = L.reduce(extractNames, {}, dictionary);
     return period;
 };
 

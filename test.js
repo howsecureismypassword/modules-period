@@ -26,10 +26,10 @@ buster.testCase("named-number", {
             assert.equals(period(3600).getPeriod(), { "value": 1, "name": "hour"});
         },
         "3.5 Days": function () {
-            assert.equals(period(302400).getPeriod(), { "value": 3.5, "name": "day"});
+            assert.equals(period(302400).getPeriod(), { "value": 3.5, "name": "days"});
         },
         "3 Weeks": function () {
-            assert.equals(period(1814400).getPeriod(), { "value": 3, "name": "week"});
+            assert.equals(period(1814400).getPeriod(), { "value": 3, "name": "weeks"});
         },
     },
     "Converting": {
