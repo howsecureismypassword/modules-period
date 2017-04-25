@@ -6,8 +6,14 @@ var periodsDictionary, orderedPeriodsDictionary;
 
 var getDictionaryValue = L.prop("seconds");
 
+var defaultName = "second";
+
+var singular = function (period) {
+    return period.seconds === 1;
+};
+
 var getPeriodInSeconds = function (name) {
-    name = name || "second";
+    name = name || defaultName;
     name = name.toLowerCase();
 
     if (periodsDictionary.hasOwnProperty(name)) {
@@ -103,6 +109,7 @@ var period = function (value, name) {
 period.setDictionary = function (dictionary) {
     orderedPeriodsDictionary = L.sortBy("seconds", dictionary);
     periodsDictionary = L.reduce(extractNames, {}, dictionary);
+    defaultName = L.first(L.filter(singular, dictionary), defaultName).singular;
     return period;
 };
 

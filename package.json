@@ -1,6 +1,6 @@
 {
   "name": "hsimp-period",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Calculates periods from seconds",
   "main": "period.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "url" : "http://github.com/howsecureismypassword/periods.git"
   },
   "dependencies": {
-    "hsimp-library": "0.1.*"
+    "hsimp-library": "^0.1.2"
   },
   "devDependencies": {
     "buster": "0.7.*"
